@@ -17,7 +17,7 @@ public class RockPaperScissorsTest {
     public void rockPaperScissorsOutputShouldBePredefined() {
         StringWriter output = new StringWriter();
         PrintWriter ps = new PrintWriter(output);
-        RockPaperScissors rockPaperScisssors = new RockPaperScissors(ps);
+        RockPaperScissors rockPaperScisssors = new RockPaperScissors(ps, new ConstantPlayer(Turn.PAPER), new RandomPlayer());
         rockPaperScisssors.run();
 
         String expected =

@@ -31,15 +31,19 @@ public class RockPaperScissors {
     public static int PLAYER_B = 1;
 
     private PrintWriter out;
+    private PlayerStrategy playerA;
+    private PlayerStrategy playerB;
     private int[] playersScore;
     private int ties;
 
     public RockPaperScissors() {
-        this(new PrintWriter(System.out, true));
+        this(new PrintWriter(System.out, true), new ConstantPlayer(Turn.PAPER), new RandomPlayer());
     }
 
-    public RockPaperScissors(PrintWriter out) {
+    public RockPaperScissors(PrintWriter out, PlayerStrategy playerA, PlayerStrategy playerB) {
         this.out = out;
+        this.playerA = playerA;
+        this.playerB = playerB;
 
         playersScore = new int[] {0, 0};
         ties = 0;
@@ -58,8 +62,8 @@ public class RockPaperScissors {
     }
 
     private void playGameRound() {
-        Turn turnOfPlayerA = Turn.PAPER;
-        Turn turnOfPlayerB = getTurnOfPlayerB();
+        Turn turnOfPlayerA = playerA.getNextTurn();
+        Turn turnOfPlayerB = playerB.getNextTurn();
 
         int winner = new Game(turnOfPlayerA, turnOfPlayerB).getWinner();
         if (winner >= 0) {
@@ -67,10 +71,6 @@ public class RockPaperScissors {
         } else {
             ties++;
         }
-    }
-
-    private Turn getTurnOfPlayerB() {
-        return Turn.values()[((int) (Math.round(Math.random() * 10) % 3))];
     }
 
     public int[] getPlayersScore() {
