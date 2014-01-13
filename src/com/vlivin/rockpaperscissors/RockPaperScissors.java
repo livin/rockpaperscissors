@@ -1,5 +1,7 @@
 package com.vlivin.rockpaperscissors;
 
+import java.io.PrintWriter;
+
 /**
  * A game in which two players compete in a game of Rock-Paper-Scissors with different strategies.
  * Who will win more rounds?
@@ -25,8 +27,24 @@ package com.vlivin.rockpaperscissors;
  * @author Vladimir Livin
  */
 public class RockPaperScissors {
+    private PrintWriter out;
+
+    public RockPaperScissors() {
+        this(new PrintWriter(System.out, true));
+    }
+
+    public RockPaperScissors(PrintWriter out) {
+        this.out = out;
+    }
+
+
     public void run() {
-        System.out.println("Rock-Paper-Scissors game");
+        out.println("Rock-Paper-Scissors game");
+        out.println();
+
+        out.println("Player A wins 0 of 100 games");
+        out.println("Player B wins 0 of 100 games");
+        out.println("Tie: 0 of 100 games");
     }
 
     public static void main(String[] args) {
