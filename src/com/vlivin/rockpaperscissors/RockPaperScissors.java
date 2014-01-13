@@ -49,9 +49,28 @@ public class RockPaperScissors {
         out.println("Rock-Paper-Scissors game");
         out.println();
 
+        for(int round = 0; round < 100; round++)
+            playGameRound();
+
         out.println(String.format("Player A wins %d of 100 games", getPlayersScore()[PLAYER_A]));
         out.println(String.format("Player B wins %d of 100 games", getPlayersScore()[PLAYER_B]));
         out.println(String.format("Tie: %d of 100 games", getTies()));
+    }
+
+    private void playGameRound() {
+        Turn turnOfPlayerA = Turn.PAPER;
+        Turn turnOfPlayerB = getTurnOfPlayerB();
+
+        int winner = new Game(turnOfPlayerA, turnOfPlayerB).getWinner();
+        if (winner >= 0) {
+            playersScore[winner]++;
+        } else {
+            ties++;
+        }
+    }
+
+    private Turn getTurnOfPlayerB() {
+        return Turn.values()[((int) (Math.round(Math.random() * 10) % 3))];
     }
 
     public int[] getPlayersScore() {
