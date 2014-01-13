@@ -27,7 +27,12 @@ import java.io.PrintWriter;
  * @author Vladimir Livin
  */
 public class RockPaperScissors {
+    public static int PLAYER_A = 0;
+    public static int PLAYER_B = 1;
+
     private PrintWriter out;
+    private int[] playersScore;
+    private int ties;
 
     public RockPaperScissors() {
         this(new PrintWriter(System.out, true));
@@ -35,16 +40,26 @@ public class RockPaperScissors {
 
     public RockPaperScissors(PrintWriter out) {
         this.out = out;
-    }
 
+        playersScore = new int[] {0, 0};
+        ties = 0;
+    }
 
     public void run() {
         out.println("Rock-Paper-Scissors game");
         out.println();
 
-        out.println("Player A wins 0 of 100 games");
-        out.println("Player B wins 0 of 100 games");
-        out.println("Tie: 0 of 100 games");
+        out.println(String.format("Player A wins %d of 100 games", getPlayersScore()[PLAYER_A]));
+        out.println(String.format("Player B wins %d of 100 games", getPlayersScore()[PLAYER_B]));
+        out.println(String.format("Tie: %d of 100 games", getTies()));
+    }
+
+    public int[] getPlayersScore() {
+        return playersScore;
+    }
+
+    public int getTies() {
+        return ties;
     }
 
     public static void main(String[] args) {

@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Tests Rock-Paper-Scissors game.
@@ -27,6 +27,13 @@ public class RockPaperScissorsTest {
             "Tie: \\d+ of 100 games\\s+";
 
         assertTrue("Output should match the expected, but was: " + output.toString(), output.toString().matches(expected));
+    }
+
+    @Test
+    public void rockPaperScissorsShouldProvidePlayersScoreAndTies() {
+        RockPaperScissors rockPaperScissors = new RockPaperScissors();
+        assertArrayEquals(new int[]{0, 0}, rockPaperScissors.getPlayersScore());
+        assertEquals(0, rockPaperScissors.getTies());
     }
 
     @Test
