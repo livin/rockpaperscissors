@@ -1,6 +1,6 @@
 # Rock-Paper-Scissors Game
 
-The is to build a build a game in which two players compete in a game of Rock-Paper-Scissors
+The goal is to build a game in which two players compete in a game of Rock-Paper-Scissors
 with different strategies. Who will win more rounds?
 
 ## Rules
