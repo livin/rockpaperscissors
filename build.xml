@@ -61,9 +61,10 @@
 
     <dirname property="basedir" file="${ant.file}"/>
 
-    <property name="output.dir" value="${basedir}/out/production"/>
-    <property name="testoutput.dir" value="${basedir}/out/test"/>
-    <property name="test.report.dir" value="${basedir}/out/test-report"/>
+    <property name="output.basedir" value="${basedir}/out"/>
+    <property name="production.output.dir" value="${output.basedir}/production"/>
+    <property name="test.output.dir" value="${output.basedir}/test"/>
+    <property name="test.report.dir" value="${output.basedir}/test-report"/>
 
     <path id="bootclasspath">
         <!-- Paths to be included in compilation bootclasspath -->
@@ -71,15 +72,16 @@
 
     <path id="production.classpath"/>
 
-    <path id="classpath">
-        <pathelement location="${output.dir}"/>
-    </path>
-
     <path id="tests.classpath">
+        <path refid="production.classpath"/>
+        <pathelement location="${production.output.dir}"/>
         <pathelement location="lib/junit-4.11.jar"/>
         <pathelement location="lib/hamcrest-core-1.3.jar"/>
-        <pathelement location="${output.dir}"/>
-        <pathelement location="${testoutput.dir}"/>
+    </path>
+
+    <path id="junit.classpath">
+        <path refid="tests.classpath"/>
+        <pathelement location="${test.output.dir}"/>
     </path>
 
     <patternset id="excluded">
@@ -101,16 +103,16 @@
     <target name="compile" depends="compile.production,compile.tests" description="Compile"/>
 
     <target name="compile.production" description="Compile production classes">
-        <mkdir dir="${output.dir}"/>
-        <javac destdir="${output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}"
+        <mkdir dir="${production.output.dir}"/>
+        <javac destdir="${production.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}"
                memorymaximumsize="${compiler.max.memory}" fork="true">
             <compilerarg line="${compiler.args}"/>
-            <classpath refid="classpath"/>
+            <classpath refid="production.classpath"/>
             <src refid="sourcepath"/>
             <patternset refid="excluded"/>
         </javac>
 
-        <copy todir="${output.dir}">
+        <copy todir="${production.output.dir}">
             <fileset dir="${basedir}/src">
                 <patternset refid="compiler.resources"/>
                 <type type="file"/>
@@ -119,8 +121,8 @@
     </target>
 
     <target name="compile.tests" depends="compile.production" description="compile test classes" unless="skip.tests">
-        <mkdir dir="${testoutput.dir}"/>
-        <javac destdir="${testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}"
+        <mkdir dir="${test.output.dir}"/>
+        <javac destdir="${test.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}"
                memorymaximumsize="${compiler.max.memory}" fork="true">
             <compilerarg line="${compiler.args}"/>
             <classpath refid="tests.classpath"/>
@@ -128,7 +130,7 @@
             <patternset refid="excluded"/>
         </javac>
 
-        <copy todir="${testoutput.dir}">
+        <copy todir="${test.output.dir}">
             <fileset dir="${basedir}/src-test">
                 <patternset refid="compiler.resources"/>
                 <type type="file"/>
@@ -137,14 +139,14 @@
     </target>
 
     <target name="clean" description="cleanup module">
-        <delete dir="${output.dir}"/>
-        <delete dir="${testoutput.dir}"/>
+        <delete dir="${output.basedir}"/>
+        <delete file="${basedir}/rockpaperscissors.jar"/>
     </target>
 
     <target name="build" depends="clean, compile" description="build all"/>
 
     <target name="jar" depends="build" description="Make Distribution">
-        <jar destfile="rockpaperscissors.jar" basedir="${output.dir}">
+        <jar destfile="${basedir}/rockpaperscissors.jar" basedir="${production.output.dir}">
             <manifest>
                 <attribute name="Main-Class" value="com.vlivin.rockpaperscissors.RockPaperScissors"/>
             </manifest>
@@ -152,7 +154,7 @@
     </target>
 
     <target name="run" depends="build">
-        <java classpathref="classpath" classname="com.vlivin.rockpaperscissors.RockPaperScissors"/>
+        <java classpathref="production.classpath" classname="com.vlivin.rockpaperscissors.RockPaperScissors"/>
     </target>
 
     <target name="test" depends="compile.tests">
@@ -160,9 +162,9 @@
 
         <junit haltonerror="yes" printsummary="yes" showoutput="yes" filtertrace="off">
             <formatter type="plain" usefile="false" />
-            <classpath refid="tests.classpath"/>
+            <classpath refid="junit.classpath"/>
             <batchtest todir="${test.report.dir}">
-                <fileset dir="${testoutput.dir}">
+                <fileset dir="${test.output.dir}">
                     <include name="**/*Test*.class"/>
                 </fileset>
             </batchtest>
