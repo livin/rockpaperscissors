@@ -29,3 +29,5 @@ To run a project:
 2. Run project with following command: 'java -jar rockpaperscissors.jar'
 
 You can also run project with 'ant run'.
+
+To run tests use 'ant test' command.
