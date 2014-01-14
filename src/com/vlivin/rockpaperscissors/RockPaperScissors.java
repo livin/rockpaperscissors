@@ -72,7 +72,7 @@ public class RockPaperScissors {
     }
 
     private void scoreUpWinner(Player winner) {
-        playersScore[winner.equals(playerA)?0:1]++;
+        playersScore[winner.equals(playerA)?PLAYER_A:PLAYER_B]++;
     }
 
     public int[] getPlayersScore() {
