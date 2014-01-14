@@ -27,6 +27,7 @@ import java.io.PrintWriter;
  * @author Vladimir Livin
  */
 public class RockPaperScissors {
+    public static final int TOTAL_ROUNDS = 100;
     public static int PLAYER_A = 0;
     public static int PLAYER_B = 1;
 
@@ -53,7 +54,7 @@ public class RockPaperScissors {
         out.println("Rock-Paper-Scissors game");
         out.println();
 
-        for(int round = 0; round < 100; round++)
+        for(int rounds = 1; rounds <= TOTAL_ROUNDS; rounds++)
             playGameRound();
 
         out.println(String.format("Player A wins %d of 100 games", getPlayersScore()[PLAYER_A]));
