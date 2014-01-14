@@ -1,33 +1,39 @@
 package com.vlivin.rockpaperscissors;
 
 /**
+ * Represents a Rock-Paper-Scissors game.
+ *
+ * The game takes two players A and B.
+ *
+ * Both is asked for the turn.
+ * The player of winning turn is a winner.
+ *
  * @author Vladimir Livin
  */
 public class Game {
-    private Turn turnOfPlayerA;
-    private Turn turnOfPlayerB;
+    private Player a;
+    private Player b;
 
-    public Game(Turn turnOfPlayerA, Turn turnOfPlayerB) {
-        this.turnOfPlayerA = turnOfPlayerA;
-        this.turnOfPlayerB = turnOfPlayerB;
+    public Game(Player a, Player b) {
+        this.a = a;
+        this.b = b;
     }
 
     /**
-     * Returns an index of the winning player:
-     * 0 - for the first player.
-     * 1 - for the second player.
+     * Returns a winner of this game-round.
      *
-     * -1 - if it's a tie.
-     *
-     * @return an index indicating a winning player or -1 for a tie.
+     * @return a Player who won this game.
      */
-    public int getWinner() {
+    public Player getWinner() {
+        Turn turnOfPlayerA = a.getNextTurn();
+        Turn turnOfPlayerB = b.getNextTurn();
+
         Turn winningTurn = turnOfPlayerA.versus(turnOfPlayerB);
         if (turnOfPlayerA.equals(winningTurn)) {
-            return 0;
+            return a;
         } else if (turnOfPlayerB.equals(winningTurn)) {
-            return 1;
+            return b;
         }
-        return -1;
+        return null;
     }
 }

@@ -3,28 +3,28 @@ package com.vlivin.rockpaperscissors;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * @author Vladimir Livin
  */
 public class GameTest {
     @Test
-    public void paperShouldBeatRock() {
-        assertEquals("Paper beats Rock, second player (index: 1) should win", 1, new Game(Turn.ROCK, Turn.PAPER).getWinner());
+    public void playerAwithWinningTurnShouldBeWinner() {
+        Player a = new Player(Turn.ROCK);
+        Player b = new Player(Turn.SCISSORS);
+        assertEquals("Player A with Rock should win Player B with Scissors", a, new Game(a, b).getWinner());
     }
 
     @Test
-    public void scissorsShouldBeatPaper() {
-        assertEquals("Scissors beats Paper, first player (index: 1) should win", 0, new Game(Turn.SCISSORS, Turn.PAPER).getWinner());
+    public void playerBwithWinningTurnShouldWinner() {
+        Player a = new Player(Turn.ROCK);
+        Player b = new Player(Turn.PAPER);
+        assertEquals("Player B with Paper should win Player A with Rock", b, new Game(a, b).getWinner());
     }
 
     @Test
-    public void rockShouldBeatScissors() {
-        assertEquals("Rock beats Scissors, first player (index: 1) should win", 0, new Game(Turn.ROCK, Turn.SCISSORS).getWinner());
-    }
-
-    @Test
-    public void rockVsRockShouldBeTie() {
-        assertEquals("Rock and Rock should give a tie", -1, new Game(Turn.ROCK, Turn.ROCK).getWinner());
+    public void whenBothWithTheSameTurnThereShouldBeNoWinner() {
+        assertNull("Rock and Rock should give a tie", new Game(new Player(Turn.ROCK), new Player(Turn.ROCK)).getWinner());
     }
 }

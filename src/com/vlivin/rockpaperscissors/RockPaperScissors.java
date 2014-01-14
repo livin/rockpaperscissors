@@ -62,12 +62,9 @@ public class RockPaperScissors {
     }
 
     private void playGameRound() {
-        Turn turnOfPlayerA = playerA.getNextTurn();
-        Turn turnOfPlayerB = playerB.getNextTurn();
-
-        int winner = new Game(turnOfPlayerA, turnOfPlayerB).getWinner();
-        if (winner >= 0) {
-            playersScore[winner]++;
+        Player winner = new Game(playerA, playerB).getWinner();
+        if (winner != null) {
+            playersScore[winner.equals(playerA)?0:1]++;
         } else {
             ties++;
         }
