@@ -153,8 +153,8 @@
         </jar>
     </target>
 
-    <target name="run" depends="build">
-        <java classpathref="production.classpath" classname="com.vlivin.rockpaperscissors.RockPaperScissors"/>
+    <target name="run" depends="jar">
+        <java classpathref="production.classpath" jar="${basedir}/rockpaperscissors.jar" fork="true"/>
     </target>
 
     <target name="test" depends="compile.tests">
