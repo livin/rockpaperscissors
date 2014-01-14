@@ -5,7 +5,7 @@ package com.vlivin.rockpaperscissors;
  *
  * @author Vladimir Livin
  */
-public class ConstantPlayer implements PlayerStrategy {
+public class ConstantPlayer implements Player {
     private Turn turn;
 
     public ConstantPlayer(Turn turn) {

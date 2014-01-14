@@ -5,6 +5,6 @@ package com.vlivin.rockpaperscissors;
  *
  * @author Vladimir Livin
  */
-public interface PlayerStrategy {
+public interface Player {
     public Turn getNextTurn();
 }

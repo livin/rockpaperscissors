@@ -31,8 +31,8 @@ public class RockPaperScissors {
     public static int PLAYER_B = 1;
 
     private PrintWriter out;
-    private PlayerStrategy playerA;
-    private PlayerStrategy playerB;
+    private Player playerA;
+    private Player playerB;
     private int[] playersScore;
     private int ties;
 
@@ -40,7 +40,7 @@ public class RockPaperScissors {
         this(new PrintWriter(System.out, true), new ConstantPlayer(Turn.PAPER), new RandomPlayer());
     }
 
-    public RockPaperScissors(PrintWriter out, PlayerStrategy playerA, PlayerStrategy playerB) {
+    public RockPaperScissors(PrintWriter out, Player playerA, Player playerB) {
         this.out = out;
         this.playerA = playerA;
         this.playerB = playerB;
