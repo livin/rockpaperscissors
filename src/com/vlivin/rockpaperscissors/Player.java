@@ -1,10 +1,26 @@
 package com.vlivin.rockpaperscissors;
 
 /**
- * Represents the player's strategy interface.
+ * Represents the player logic.
  *
  * @author Vladimir Livin
  */
-public interface Player {
-    public Turn getNextTurn();
+public class Player {
+    private Turn nextTurn;
+
+    public Player(Turn nextTurn) {
+        setNextTurn(nextTurn);
+    }
+
+    public Player() {
+    }
+
+    public Player setNextTurn(Turn nextTurn) {
+        this.nextTurn = nextTurn;
+        return this;
+    }
+
+    public Turn getNextTurn() {
+        return nextTurn;
+    }
 }

@@ -37,7 +37,7 @@ public class RockPaperScissors {
     private int ties;
 
     public RockPaperScissors() {
-        this(new PrintWriter(System.out, true), new ConstantPlayer(Turn.PAPER), new RandomPlayer());
+        this(new PrintWriter(System.out, true), new Player(Turn.PAPER), new RandomPlayer());
     }
 
     public RockPaperScissors(PrintWriter out, Player playerA, Player playerB) {

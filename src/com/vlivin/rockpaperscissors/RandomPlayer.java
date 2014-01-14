@@ -5,7 +5,7 @@ package com.vlivin.rockpaperscissors;
  *
  * @author Vladimir Livin
  */
-public class RandomPlayer implements Player {
+public class RandomPlayer extends Player {
     @Override
     public Turn getNextTurn() {
         return Turn.values()[((int) (Math.round(Math.random() * 1000) % 3))];
