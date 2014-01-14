@@ -64,10 +64,14 @@ public class RockPaperScissors {
     private void playGameRound() {
         Player winner = new Game(playerA, playerB).getWinner();
         if (winner != null) {
-            playersScore[winner.equals(playerA)?0:1]++;
+            scoreUpWinner(winner);
         } else {
             ties++;
         }
+    }
+
+    private void scoreUpWinner(Player winner) {
+        playersScore[winner.equals(playerA)?0:1]++;
     }
 
     public int[] getPlayersScore() {
